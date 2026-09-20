@@ -1,0 +1,405 @@
+/* ==========================================================================
+   ASTRA CANTEEN - DIGITAL QR TOKEN PASS & LIVE TRACKER STYLES
+   Boarding-pass style digital pickup voucher with live status stepper
+   ========================================================================== */
+
+.tracker-container {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* Empty Tracker State */
+.tracker-empty {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.tracker-empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+/* Boarding Pass Digital Token */
+.token-pass-card {
+  background: linear-gradient(135deg, rgba(21, 30, 52, 0.95) 0%, rgba(13, 20, 36, 0.98) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.pass-header {
+  background: var(--accent-gradient);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+.pass-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pass-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.pass-token-large {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pass Body Layout */
+.pass-body {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+/* Perforated ticket notch left & right */
+.pass-body::before, .pass-body::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--bg-main);
+  border-radius: 50%;
+  z-index: 5;
+}
+.pass-body::before { left: -14px; }
+.pass-body::after { right: -14px; }
+
+.pass-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.info-cell label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.info-cell span {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.slot-highlight-box {
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 0.85rem 1.15rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slot-box-left strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #a5b4fc;
+}
+
+.slot-box-left small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.countdown-timer-chip {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+/* QR Card Presentation */
+.pass-qr-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.qr-frame {
+  background: #ffffff;
+  padding: 0.85rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  display: inline-block;
+  line-height: 0;
+}
+
+.qr-frame img {
+  width: 170px;
+  height: 170px;
+  display: block;
+}
+
+.qr-caption {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.qr-subtext {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Live Status Stepper */
+.pass-status-section {
+  padding: 2rem;
+}
+
+.status-headline-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+
+.status-headline {
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.status-badge-chip {
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-badge-chip.placed { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }
+.status-badge-chip.preparing { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+.status-badge-chip.ready { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+.status-badge-chip.picked { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.stepper-progress-bar-bg {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  right: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.stepper-progress-bar-fill {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  height: 4px;
+  background: var(--accent-gradient);
+  z-index: 2;
+  transition: width 0.5s ease;
+}
+
+.step-node {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100px;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #111827;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+}
+
+.step-node.active .step-circle {
+  background: var(--accent-primary);
+  border-color: #ffffff;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.6);
+  transform: scale(1.15);
+}
+
+.step-node.completed .step-circle {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+.step-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.step-node.active .step-title {
+  color: var(--text-main);
+}
+
+/* Itemized Bill Section */
+.invoice-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.invoice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.invoice-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+}
+
+.invoice-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.invoice-table td {
+  padding: 0.75rem 0.5rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.invoice-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 320px;
+  margin-left: auto;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.summary-line.grand-total {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Print/Actions Bar */
+.pass-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.pass-action-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.pass-action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .pass-body {
+    grid-template-columns: 1fr;
+  }
+}

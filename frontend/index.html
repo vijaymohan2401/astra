@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astra Canteen — Smart Campus Food Ordering & Crowd Control</title>
+  
+  <!-- Modern Google Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Modular CSS Design System -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/student.css">
+  <link rel="stylesheet" href="css/qr-token.css">
+  <link rel="stylesheet" href="css/kitchen.css">
+</head>
+<body>
+
+  <!-- App Sticky Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <div class="brand" onclick="switchView('student')">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="brand-title">ASTRA CANTEEN</span>
+            <span class="brand-badge">SMART CAMPUS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Counter Crowd Indicator -->
+      <div class="header-status-pill">
+        <span class="status-dot-pulse"></span>
+        <span id="header-traffic-status">Counter: Optimal Flow</span>
+        <span class="pill-subtext" style="opacity: 0.4;">|</span>
+        <span class="pill-subtext" id="header-live-text">Live Synced</span>
+      </div>
+
+      <!-- Navigation Role Tabs -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-view="student">
+          <span>🍽️</span> Menu
+        </button>
+        <button class="nav-tab-btn" data-view="tracker">
+          <span>🎫</span> My Pass
+        </button>
+        <button class="nav-tab-btn" data-view="kitchen">
+          <span>👨‍🍳</span> Kitchen
+          <span class="nav-tab-badge" id="col-placed-count">0</span>
+        </button>
+        <button class="nav-tab-btn" data-view="scanner">
+          <span>📷</span> Counter Scanner
+        </button>
+        <button class="nav-tab-btn" data-view="stock">
+          <span>📦</span> Stock
+        </button>
+        <button class="nav-tab-btn" data-view="analytics">
+          <span>📊</span> Metrics
+        </button>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Order History & Receipts Modal Trigger -->
+        <button class="header-action-btn" id="history-modal-btn" title="View Past Passes & Re-Order">
+          <span class="btn-icon">📜</span>
+          <span>Passes</span>
+        </button>
+
+        <button class="sound-toggle-btn" id="sound-toggle-btn" title="Toggle Sound Chimes">
+          🔔
+        </button>
+
+        <button class="cart-trigger-btn" id="cart-trigger-btn">
+          <span>🛒</span>
+          <span>Cart</span>
+          <span class="cart-count-badge" id="cart-count-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="main-container">
+
+    <!-- ====================================================================
+         VIEW 1: STUDENT FOOD ORDERING PORTAL
+         ==================================================================== -->
+    <section class="view-section active" id="view-student">
+      <!-- Hero Banner -->
+      <div class="student-hero">
+        <div class="hero-content">
+          <div class="hero-tag">⚡ ZERO COUNTER RUSH • SMART PRE-ORDERING</div>
+          <h1 class="hero-title">
+            Skip the Counter Lines.<br>
+            <span>Pre-order, Grab with QR, and Enjoy.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Schedule your pickup slot, get an instant dynamic QR pickup pass, and pick up your hot food in under 30 seconds at the express counter!
+          </p>
+
+          <div class="hero-stats-row">
+            <div class="hero-stat-item">
+              <div class="stat-icon-wrap">⏱️</div>
+              <div class="stat-text">
+                <strong>~30 Sec Handoff</strong>
+                <small>Express QR counter</small>
+              </div>
+            </div>
+
+            <div class="hero-stat-item">
+              <div class="stat-icon-wrap">🛡️</div>
+              <div class="stat-text">
+                <strong>82.5% Crowd Cut</strong>
+                <small>Staggered pickup slots</small>
+              </div>
+            </div>
+
+            <div class="hero-stat-item">
+              <div class="stat-icon-wrap">📱</div>
+              <div class="stat-text">
+                <strong>100% Digital Token</strong>
+                <small>No paper waste or lost receipts</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu Filters Bar -->
+      <div class="filter-bar">
+        <div class="category-pills">
+          <button class="category-btn active" data-category="all">All Dishes</button>
+          <button class="category-btn" data-category="Breakfast">Breakfast</button>
+          <button class="category-btn" data-category="Meals & Thalis">Meals & Thalis</button>
+          <button class="category-btn" data-category="Quick Bites">Quick Bites</button>
+          <button class="category-btn" data-category="Beverages">Beverages</button>
+        </div>
+
+        <div class="filter-controls-right">
+          <div class="dietary-switch">
+            <button class="diet-btn active" data-diet="all">All</button>
+            <button class="diet-btn" data-diet="veg">🟢 Pure Veg</button>
+            <button class="diet-btn" data-diet="non-veg">🔴 Non-Veg</button>
+          </div>
+
+          <div class="search-box-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="menu-search-input" placeholder="Search dosa, biryani, coffee...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Filter Tags & Sorting Bar -->
+      <div class="menu-sub-bar">
+        <div class="quick-tags-group">
+          <span class="quick-tag-label">Tags:</span>
+          <button class="quick-tag-btn active" data-tag="all">All</button>
+          <button class="quick-tag-btn" data-tag="fast">⚡ Ready &lt;10m</button>
+          <button class="quick-tag-btn" data-tag="budget">🏷️ Under ₹100</button>
+          <button class="quick-tag-btn" data-tag="healthy">🥗 Low Calorie</button>
+          <button class="quick-tag-btn" data-tag="spicy">🌶️ Spicy</button>
+        </div>
+
+        <div class="sort-group">
+          <label class="sort-label" for="menu-sort-select">Sort by:</label>
+          <select id="menu-sort-select" class="sort-select">
+            <option value="recommended">⭐ Recommended</option>
+            <option value="price-asc">💵 Price: Low to High</option>
+            <option value="price-desc">💎 Price: High to Low</option>
+            <option value="prep-asc">⏱️ Fastest Preparation</option>
+            <option value="calories-asc">🔥 Lowest Calories</option>
+          </select>
+          <span id="menu-dishes-count" style="font-size: 0.78rem; color: var(--text-dim); font-weight: 600; margin-left: 0.5rem;">Showing dishes</span>
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="menu-grid" id="menu-grid">
+        <!-- Dynamically rendered by student.js -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: STUDENT DIGITAL QR TOKEN PASS & LIVE TRACKER
+         ==================================================================== -->
+    <section class="view-section" id="view-tracker">
+      <div id="tracker-content-area">
+        <!-- Dynamically rendered by tracker.js -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 3: KITCHEN STAFF KANBAN DASHBOARD
+         ==================================================================== -->
+    <section class="view-section" id="view-kitchen">
+      <div class="kitchen-controls-bar">
+        <div class="kitchen-title-wrap">
+          <h2>Kitchen Orders Kanban</h2>
+          <span class="kitchen-live-badge">
+            <span class="status-dot-pulse" style="background: #ef4444;"></span> LIVE KITCHEN
+          </span>
+        </div>
+
+        <!-- Kitchen Station & Search Controls -->
+        <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
+          <select id="kitchen-station-filter" class="sort-select" style="padding: 0.35rem 0.75rem;">
+            <option value="all">🏢 All Stations</option>
+            <option value="hot">🍳 Hot Kitchen & Meals</option>
+            <option value="cold">🥤 Beverages & Fast Grab</option>
+          </select>
+          <input type="text" id="kitchen-search-input" placeholder="Filter Token #AST..." class="sort-select" style="width: 160px;">
+        </div>
+
+        <div class="kitchen-stat-chips">
+          <span class="chip">🔔 In Prep: <strong id="col-prep-count">0</strong></span>
+          <span class="chip">✨ Ready at Counter: <strong id="col-ready-count">0</strong></span>
+          <span class="chip">✅ Completed Today: <strong id="col-done-count">0</strong></span>
+        </div>
+      </div>
+
+      <!-- 4-Column Real-time Board -->
+      <div class="kanban-board">
+        <!-- Col 1: Placed -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <div class="col-header-left">
+              <span>📥 Incoming Placed</span>
+            </div>
+          </div>
+          <div class="kanban-col-body" id="kanban-col-placed"></div>
+        </div>
+
+        <!-- Col 2: Preparing -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <div class="col-header-left" style="color: #fbbf24;">
+              <span>🍳 In Kitchen (Cooking)</span>
+            </div>
+          </div>
+          <div class="kanban-col-body" id="kanban-col-prep"></div>
+        </div>
+
+        <!-- Col 3: Ready at Counter -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <div class="col-header-left" style="color: #38bdf8;">
+              <span>🔔 Ready at Counter</span>
+            </div>
+          </div>
+          <div class="kanban-col-body" id="kanban-col-ready"></div>
+        </div>
+
+        <!-- Col 4: Completed -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <div class="col-header-left" style="color: #34d399;">
+              <span>✅ Handed Over</span>
+            </div>
+          </div>
+          <div class="kanban-col-body" id="kanban-col-done"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 4: COUNTER STAFF QR SCANNER & TOKEN VERIFIER
+         ==================================================================== -->
+    <section class="view-section" id="view-scanner">
+      <div class="scanner-container">
+        <div class="scanner-viewfinder-card">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem;">
+              Counter Fast-Track Scanner
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Point counter camera at student's phone QR code or enter token number to verify pickup.
+            </p>
+          </div>
+
+          <!-- Quick test tokens bar -->
+          <div id="scanner-quick-tokens" style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;"></div>
+
+          <!-- Scanner Reticle Viewfinder -->
+          <div class="scanner-box-wrapper">
+            <div class="scanner-corner tl"></div>
+            <div class="scanner-corner tr"></div>
+            <div class="scanner-corner bl"></div>
+            <div class="scanner-corner br"></div>
+            <div class="scanner-laser"></div>
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 1rem;">
+              <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📷</div>
+              <span>Optical Scanner Active</span>
+            </div>
+          </div>
+
+          <!-- Input bar for manual token entry -->
+          <div class="scanner-input-bar">
+            <input type="text" id="scanner-token-input" placeholder="e.g. #AST-101 or Scan QR">
+            <button class="scanner-verify-btn" id="scanner-verify-btn">
+              Verify & Hand Over
+            </button>
+          </div>
+        </div>
+
+        <!-- Verification Result Banner -->
+        <div class="verification-result-card" id="verification-result-card"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 5: LIVE STOCK & INVENTORY MANAGER
+         ==================================================================== -->
+    <section class="view-section" id="view-stock">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">Live Stock & Kitchen Inventory</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">
+            Instantly toggle dishes when ingredients finish. Updates student order menu in real time.
+          </p>
+        </div>
+        <button class="pass-action-btn" onclick="StockPortal.loadStockTable()">
+          <span>🔄</span> Refresh Stock
+        </button>
+      </div>
+
+      <div class="stock-table-card">
+        <table class="stock-table">
+          <thead>
+            <tr>
+              <th>Dish</th>
+              <th>Diet</th>
+              <th>Portions Left</th>
+              <th>Status</th>
+              <th>Live Availability Toggle</th>
+            </tr>
+          </thead>
+          <tbody id="stock-table-body">
+            <!-- Rendered by stock.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 6: CROWD & QUEUE REDUCTION ANALYTICS
+         ==================================================================== -->
+    <section class="view-section" id="view-analytics">
+      <div style="margin-bottom: 1.75rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">Campus Canteen Crowd Analytics</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Real-time queue load monitoring and bottleneck reduction performance.
+        </p>
+      </div>
+
+      <!-- Top KPI Metrics Cards -->
+      <div class="analytics-metrics-grid">
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-label">Counter Queue Density</span>
+            <div class="metric-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">🚶</div>
+          </div>
+          <div class="metric-val" id="analytics-queue-val">0 Students</div>
+          <div class="metric-desc" id="analytics-queue-desc">Avg wait: ~30s per pickup</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-label">Queue Congestion Reduced</span>
+            <div class="metric-icon-wrap" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">🛡️</div>
+          </div>
+          <div class="metric-val" id="analytics-reduction-val">82.5%</div>
+          <div class="metric-desc">Bypassed physical queue</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-label">Avg Prep Time</span>
+            <div class="metric-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⏱️</div>
+          </div>
+          <div class="metric-val" id="analytics-prep-val">7.2m</div>
+          <div class="metric-desc">Kitchen preparation speed</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-label">Today's Revenue</span>
+            <div class="metric-icon-wrap" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">💳</div>
+          </div>
+          <div class="metric-val" id="analytics-revenue-val">₹0.00</div>
+          <div class="metric-desc">Cashless campus digital pay</div>
+        </div>
+      </div>
+
+      <!-- Lower Panels: Slot Staggering & Popular Leaderboard -->
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+        <div class="glass-card" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem;">
+            Staggered Pickup Slot Occupancy
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            Slots stagger student arrival at counter into balanced 15-minute intervals.
+          </p>
+          <div id="analytics-slot-bars"></div>
+        </div>
+
+        <div class="glass-card" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem;">
+            Most Popular Canteen Dishes
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            High-volume items pre-batched by kitchen during rush hour.
+          </p>
+          <div id="analytics-popular-items"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       CART & CHECKOUT SLIDE-OUT DRAWER
+       ==================================================================== -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <div class="cart-title">
+        <span>🛒</span> Your Pre-Order Cart
+      </div>
+      <button class="cart-close-btn" id="cart-close-btn">✕</button>
+    </div>
+
+    <div class="cart-body">
+      <!-- Empty Cart Message -->
+      <div class="cart-empty-state" id="cart-empty-state">
+        <div class="cart-empty-icon">🍽️</div>
+        <h3>Your cart is empty</h3>
+        <p style="font-size: 0.85rem; margin-top: 0.35rem;">Select delicious items from the menu to start your order.</p>
+      </div>
+
+      <!-- Items List -->
+      <div class="cart-items-list" id="cart-items-list"></div>
+
+      <!-- Scheduled Pickup Slot Picker -->
+      <div class="slot-picker-section">
+        <div class="section-label">
+          <span>⏰</span> Choose Scheduled Pickup Slot
+        </div>
+        <p class="section-hint">
+          Pick a low-crowd slot to guarantee zero counter waiting!
+        </p>
+        <div class="slot-grid" id="slot-picker-grid">
+          <!-- Rendered by student.js -->
+        </div>
+      </div>
+
+      <!-- Student Checkout Inputs -->
+      <div class="checkout-form">
+        <div class="form-field">
+          <label>Full Name</label>
+          <input type="text" id="student-name-input" value="Aarav Sharma" placeholder="Your Name">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-field">
+            <label>Student Roll No</label>
+            <input type="text" id="student-roll-input" value="CS24B112" placeholder="e.g. CS24B112">
+          </div>
+          <div class="form-field">
+            <label>Phone Number</label>
+            <input type="tel" id="student-phone-input" value="9876543210" placeholder="Mobile No">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Payment Method</label>
+          <div class="payment-selector">
+            <button class="payment-btn" data-payment="STUDENT_WALLET">
+              <span>💳</span>
+              <span>Campus Wallet</span>
+            </button>
+            <button class="payment-btn selected" data-payment="UPI_QR">
+              <span>📲</span>
+              <span>UPI QR Pay</span>
+            </button>
+            <button class="payment-btn" data-payment="COUNTER_CASH">
+              <span>💵</span>
+              <span>Cash on Hand</span>
+            </button>
+          </div>
+        <!-- Student Promo Coupons & Campus Subsidy -->
+        <div class="promo-section">
+          <div class="section-label" style="margin-bottom: 0.2rem;">
+            <span>🏷️</span> Student Coupon / Meal Subsidy
+          </div>
+          <div class="promo-input-row" id="promo-input-row">
+            <input type="text" id="promo-coupon-input" class="promo-input" placeholder="e.g. CAMPUS20">
+            <button class="promo-apply-btn" id="promo-apply-btn">Apply</button>
+          </div>
+          <div id="promo-applied-wrap" style="display: none;">
+            <div class="promo-applied-badge">
+              <span id="promo-applied-text">🎉 Coupon Applied!</span>
+              <button class="promo-remove-btn" id="promo-remove-btn" title="Remove Coupon">✕</button>
+            </div>
+          </div>
+          <div class="promo-chips-row">
+            <span style="font-size: 0.72rem; color: var(--text-dim);">Tap to apply:</span>
+            <span class="promo-chip" onclick="StudentPortal.applyPromo('CAMPUS20')">CAMPUS20 (20% Off)</span>
+            <span class="promo-chip" onclick="StudentPortal.applyPromo('FREEDRINK')">FREEDRINK (-₹40)</span>
+            <span class="promo-chip" onclick="StudentPortal.applyPromo('EXAMBOOST')">EXAMBOOST (-₹30)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Footer with Bill Totals & Submit -->
+    <div class="cart-footer">
+      <div class="bill-row">
+        <span>Items Subtotal</span>
+        <strong id="cart-subtotal">₹0.00</strong>
+      </div>
+      <div class="bill-row discount" id="cart-discount-row" style="display: none;">
+        <span>Student Discount</span>
+        <strong id="cart-discount">-₹0.00</strong>
+      </div>
+      <div class="bill-row">
+        <span>Canteen GST (5%)</span>
+        <strong id="cart-tax">₹0.00</strong>
+      </div>
+      <div class="bill-row total">
+        <span>Total Payable</span>
+        <strong id="cart-total" style="color: #38bdf8;">₹0.00</strong>
+      </div>
+
+      <button class="checkout-submit-btn" id="checkout-submit-btn" disabled>
+        <span>⚡</span> Confirm & Generate QR Pass
+      </button>
+    </div>
+  </aside>
+
+  <!-- Floating Sticky Cart FAB (Always Accessible) -->
+  <button class="floating-cart-fab" id="floating-cart-fab" onclick="StudentPortal.openCart()">
+    <span>🛒</span>
+    <span>Cart</span>
+    <span class="fab-badge" id="fab-cart-count">0 items</span>
+    <span style="opacity: 0.6;">•</span>
+    <span id="fab-cart-total" style="font-weight: 800;">₹0.00</span>
+  </button>
+
+  <!-- Campus Order History & Re-Order Modal -->
+  <div class="modal-overlay" id="history-modal-overlay">
+    <div class="history-modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📜</span> Campus Pass History &amp; 1-Click Re-Order
+        </div>
+        <button class="cart-close-btn" id="history-modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="history-modal-body">
+        <!-- Rendered dynamically by student.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Toast Notifications Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/app.js"></script>
+  <script src="js/student.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/kitchen.js"></script>
+  <script src="js/scanner.js"></script>
+  <script src="js/stock.js"></script>
+</body>
+</html>

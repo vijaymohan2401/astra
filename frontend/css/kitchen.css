@@ -1,0 +1,510 @@
+/* ==========================================================================
+   ASTRA CANTEEN - KITCHEN KANBAN, COUNTER SCANNER, AND STAFF STYLES
+   ========================================================================== */
+
+/* Kitchen Header Bar */
+.kitchen-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.kitchen-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.kitchen-title-wrap h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.kitchen-live-badge {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.kitchen-stat-chips {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.chip {
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Kanban Board */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  align-items: flex-start;
+  min-height: 580px;
+}
+
+.kanban-col {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.kanban-col-header {
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.col-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.col-count {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.kanban-col-body {
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+/* Kitchen Order Card */
+.kitchen-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: var(--transition);
+  position: relative;
+}
+
+.kitchen-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-sm);
+}
+
+.kitchen-card.urgent {
+  border-color: rgba(245, 158, 11, 0.7);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.3);
+}
+
+.k-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.k-token {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #38bdf8;
+  letter-spacing: 0.02em;
+}
+
+.k-slot-badge {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.k-student-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.k-student-meta strong {
+  color: var(--text-main);
+}
+
+.k-items-box {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.k-item-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.k-item-qty {
+  background: var(--accent-primary);
+  color: white;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  margin-right: 0.4rem;
+}
+
+.k-special-instructions {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.k-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.k-elapsed-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.k-action-btn {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border: none;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.k-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.k-action-btn.ready-btn {
+  background: var(--accent-gradient-fresh);
+}
+
+/* Counter Scanner Panel */
+.scanner-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.scanner-viewfinder-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.scanner-box-wrapper {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  background: #000000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scanner-box-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Target Reticle */
+.scanner-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: #38bdf8;
+  border-style: solid;
+  pointer-events: none;
+}
+.scanner-corner.tl { top: 15px; left: 15px; border-width: 3px 0 0 3px; }
+.scanner-corner.tr { top: 15px; right: 15px; border-width: 3px 3px 0 0; }
+.scanner-corner.bl { bottom: 15px; left: 15px; border-width: 0 0 3px 3px; }
+.scanner-corner.br { bottom: 15px; right: 15px; border-width: 0 3px 3px 0; }
+
+.scanner-laser {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #38bdf8;
+  box-shadow: 0 0 12px #38bdf8, 0 0 20px #38bdf8;
+  animation: scanMove 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes scanMove {
+  0% { top: 15%; opacity: 0.3; }
+  50% { top: 85%; opacity: 1; }
+  100% { top: 15%; opacity: 0.3; }
+}
+
+.scanner-input-bar {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.scanner-input-bar input {
+  flex: 1;
+  background: var(--bg-glass-input);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  outline: none;
+}
+
+.scanner-input-bar input:focus {
+  border-color: var(--border-focus);
+}
+
+.scanner-verify-btn {
+  background: var(--accent-gradient-fresh);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.scanner-verify-btn:hover {
+  box-shadow: var(--glow-emerald);
+}
+
+/* Scanner Result Banner */
+.verification-result-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: none;
+}
+
+.verification-result-card.show {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.verification-result-card.success {
+  border-color: rgba(16, 185, 129, 0.6);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0.9) 100%);
+}
+
+.verification-result-card.error {
+  border-color: rgba(239, 68, 68, 0.6);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(15, 23, 42, 0.9) 100%);
+}
+
+/* Stock Manager Panel */
+.stock-table-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.stock-table td {
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stock-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.stock-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.stock-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: 0.3s;
+  border-radius: 26px;
+}
+
+.stock-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .stock-slider {
+  background: #10b981;
+}
+
+input:checked + .stock-slider:before {
+  transform: translateX(22px);
+}
+
+/* Analytics Dashboard Grid */
+.analytics-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.metric-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.metric-val {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.metric-desc {
+  font-size: 0.78rem;
+  color: #34d399;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .kanban-board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+}
