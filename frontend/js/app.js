@@ -3,9 +3,9 @@
  * State management, WebSocket synchronization, audio chimes, navigation
  */
 
-const AppState = {
-  apiBase: 'http://127.0.0.1:8000',
-  wsUrl: 'ws://127.0.0.1:8000/ws',
+  const AppState = {
+  apiBase: 'https://canteenmanagement-vert.vercel.app',
+  wsUrl: 'wss://canteenmanagement-vert.vercel.app/ws',
   ws: null,
   currentView: 'student',
   soundEnabled: true,
